@@ -1,0 +1,75 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs
+.vscode/
+.idea/
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.*
+
+# Logs
+*.log
+
+# Large datasets
+data/
+datasets/
+*.zip
+*.rar
+*.7z
+
+# Video files
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+
+# Images generated during processing
+outputs/
+runs/
+
+# Machine learning model weights
+*.pt
+*.pth
+*.onnx
+*.weights
+
+# YOLO
+runs/
+wandb/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Python coverage
+.coverage
+htmlcov/
+
+# Node / Frontend
+node_modules/
+dist/
+build/
+
+# Frontend environment files
+frontend/.env
+frontend/.env.local
