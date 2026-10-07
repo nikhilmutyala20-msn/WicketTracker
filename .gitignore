@@ -1,38 +1,76 @@
-﻿# Python
+# Python
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
 
-# Virtual environment
+# Virtual environments
 .venv/
 venv/
 env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs
+.vscode/
+.idea/
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.*
+
+# Logs
+*.log
 
 # Datasets
+data/
 dataset/
 datasets/
+*.zip
+*.rar
+*.7z
 
-# Videos
+# Video files
 videos/
 *.mp4
 *.avi
 *.mov
 *.mkv
+*.webm
 
 # Generated outputs
 outputs/
 runs/
 
-# Model weights
+# Machine learning model weights
 *.pt
 *.pth
 *.onnx
+*.weights
 
-# IDE
-.vscode/
-.idea/
+# YOLO
+wandb/
 
-# Logs
-*.log
+# Temporary files
+tmp/
+temp/
+*.tmp
 
-# Environment files
-.env
+# Python coverage
+.coverage
+htmlcov/
+
+# Node / Frontend
+node_modules/
+dist/
+build/
+
+# Frontend environment files
+frontend/.env
+frontend/.env.local
