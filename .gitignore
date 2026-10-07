@@ -1,0 +1,38 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Datasets
+dataset/
+datasets/
+
+# Videos
+videos/
+*.mp4
+*.avi
+*.mov
+*.mkv
+
+# Generated outputs
+outputs/
+runs/
+
+# Model weights
+*.pt
+*.pth
+*.onnx
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Environment files
+.env
