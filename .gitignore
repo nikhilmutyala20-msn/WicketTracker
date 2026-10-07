@@ -50,6 +50,7 @@ runs/
 
 # Machine learning model weights
 *.pt
+!models/pitch_detector/best.pt
 *.pth
 *.onnx
 *.weights
