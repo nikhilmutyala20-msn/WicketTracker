@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WicketTracker - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">WicketTracker</div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="upload.html">Upload</a>
+        <a href="about.html">About</a>
+    </nav>
+</header>
+
+<main class="dashboard">
+
+    <section class="dashboard-header">
+        <h1>Match Analysis</h1>
+        <p>View wicket events, ball trajectories and pitch analysis.</p>
+    </section>
+
+    <!-- Summary cards -->
+    <section class="stats-grid">
+
+        <div class="stat-card">
+            <h3>Wickets</h3>
+            <p id="wicketCount">--</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Deliveries</h3>
+            <p id="deliveryCount">--</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Ball Detection</h3>
+            <p id="ballStatus">Pending</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Pitch Detection</h3>
+            <p id="pitchStatus">Pending</p>
+        </div>
+
+    </section>
+
+    <!-- Video -->
+    <section class="analysis-section">
+        <h2>Match Video</h2>
+
+        <div class="video-container">
+            <video id="matchVideo" controls>
+                <source src="" type="video/mp4">
+                Your browser does not support video playback.
+            </video>
+        </div>
+    </section>
+
+    <!-- Wicket events -->
+    <section class="analysis-section">
+        <h2>Wicket Events</h2>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Timestamp</th>
+                        <th>Type</th>
+                        <th>Confidence</th>
+                    </tr>
+                </thead>
+
+                <tbody id="wicketTable">
+                    <tr>
+                        <td colspan="4">No analysis results yet.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Visual analysis -->
+    <section class="visual-grid">
+
+        <div class="visual-card">
+            <h2>Ball Trajectory</h2>
+
+            <div class="visual-placeholder">
+                Trajectory visualization will appear here.
+            </div>
+        </div>
+
+        <div class="visual-card">
+            <h2>Heatmap</h2>
+
+            <div class="visual-placeholder">
+                Heatmap will appear here.
+            </div>
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 WicketTracker</p>
+</footer>
+
+</body>
+</html>

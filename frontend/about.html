@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About - Wicket Tracker</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        body {
+            background:
+                radial-gradient(
+                    circle at 50% 10%,
+                    rgba(120, 40, 255, 0.18),
+                    transparent 40%
+                ),
+                #050509;
+            color: white;
+        }
+
+        .about-page {
+            min-height: 100vh;
+            padding: 70px 6% 100px;
+        }
+
+        .back-home {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .back-home:hover {
+            color: #131110;
+        }
+
+        .about-header {
+            text-align: center;
+            margin: 40px auto 50px;
+            max-width: 900px;
+        }
+
+        .about-tag {
+            display: inline-block;
+            padding: 10px 25px;
+            border: 1px solid #963cff;
+            border-radius: 30px;
+            color: #a943ff;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .about-header h1 {
+            margin-top: 25px;
+            font-size: clamp(45px, 6vw, 75px);
+        }
+
+        .about-header h1 span {
+            display: block;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #8e2cff,
+                    #c13cff,
+                    #693cff
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-description {
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .about-description p {
+            color: #c8c8d0;
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin: 80px 0 35px;
+        }
+
+        /* FEATURES */
+
+        .feature-grid {
+            max-width: 1200px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 20px;
+        }
+
+        .feature-card {
+            padding: 30px 20px;
+
+            text-align: center;
+
+            background:
+                rgba(20, 10, 40, 0.75);
+
+            border: 1px solid
+                rgba(145, 55, 255, 0.3);
+
+            border-radius: 18px;
+
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+
+            border-color: #9c3cff;
+
+            box-shadow:
+                0 0 30px
+                rgba(140, 40, 255, 0.25);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #aaaab5;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 900px) {
+
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-page {
+                padding: 40px 20px 80px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <main class="about-page">
+
+        <!-- BACK TO HOME -->
+
+        <a href="index.html" class="back-home">
+            ← Back to Home
+        </a>
+
+
+        <!-- ABOUT -->
+
+        <section class="about-header">
+
+            <div class="about-tag">
+                ABOUT WICKET TRACKER
+            </div>
+
+            <h1>
+                About
+                <span>Wicket Tracker</span>
+            </h1>
+
+        </section>
+
+
+        <section class="about-description">
+
+            <p>
+                Wicket Tracker is a cricket video analysis web
+                application designed to help coaches, players, and
+                cricket analysts identify and analyze wicket-taking
+                moments from match videos.
+            </p>
+
+            <p>
+                The system takes a cricket video as input and processes
+                it using Computer Vision and AI techniques. It uses
+                <strong>YOLOv8</strong> for detecting important objects
+                such as the ball and pitch area.
+            </p>
+
+            <p>
+                The detected information can be used to track the
+                ball's movement and identify the area where a dismissal
+                occurs.
+            </p>
+
+        </section>
+
+
+        <!-- MAIN FEATURES -->
+
+        <h2 class="section-title">
+            Main Features
+        </h2>
+
+
+        <section class="feature-grid">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🎥</div>
+
+                <h3>
+                    Upload Videos
+                </h3>
+
+                <p>
+                    Upload cricket match videos for analysis.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🏏</div>
+
+                <h3>
+                    Video Types
+                </h3>
+
+                <p>
+                    Support full matches, highlights,
+                    and video clips.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🤖</div>
+
+                <h3>
+                    YOLOv8 Detection
+                </h3>
+
+                <p>
+                    AI-based object detection using YOLOv8.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">📍</div>
+
+                <h3>
+                    Pitch & Ball Detection
+                </h3>
+
+                <p>
+                    Detect important objects such as
+                    the pitch and ball.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">📈</div>
+
+                <h3>
+                    Ball Trajectory
+                </h3>
+
+                <p>
+                    Reconstruct and visualize the
+                    ball's movement.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🎯</div>
+
+                <h3>
+                    Wicket Zone
+                </h3>
+
+                <p>
+                    Visualize wicket and
+                    dismissal zones.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">📊</div>
+
+                <h3>
+                    Performance Analysis
+                </h3>
+
+                <p>
+                    Analyze cricket performance
+                    using video data.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🌐</div>
+
+                <h3>
+                    Easy Interface
+                </h3>
+
+                <p>
+                    Simple and user-friendly
+                    web interface.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Upload Video - Wicket Tracker</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, Arial, sans-serif;
+            background: #000;
+            color: #e7e7e7;
+            min-height: 100vh;
+        }
+
+        .background {
+            position: fixed;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.65),
+                    rgba(0, 0, 0, 0.9)
+                ),
+                url("background.png");
+
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+        }
+
+        .glow {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+
+            background: #7200ff;
+            filter: blur(180px);
+            opacity: 0.18;
+
+            right: -150px;
+            top: -150px;
+            z-index: -1;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 6%;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 500;
+
+            background: linear-gradient(
+                90deg,
+                #fff,
+                #9b4dff
+            );
+
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .home-btn {
+            text-decoration: none;
+            color: #ddd;
+
+            border: 1px solid #333;
+            padding: 9px 18px;
+            border-radius: 30px;
+
+            transition: 0.3s;
+        }
+
+        .home-btn:hover {
+            border-color: #8c3fc0;
+            color: white;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            padding: 20px 30px 50px;
+        }
+
+        .upload-container {
+            width: 700px;
+            max-width: 95%;
+
+            padding: 40px;
+
+            background: rgba(10, 10, 10, 0.9);
+
+            border: 1px solid rgba(140, 63, 192, 0.5);
+            border-radius: 22px;
+
+            text-align: center;
+
+            box-shadow:
+                0 0 45px rgba(111, 0, 255, 0.2);
+
+            backdrop-filter: blur(15px);
+        }
+
+        .upload-container h2 {
+            font-size: 2.3rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .type-title {
+            text-align: left;
+            margin-bottom: 15px;
+
+            color: #ccc;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .video-types {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .video-type {
+            padding: 20px 10px;
+
+            background: #111;
+
+            border: 1px solid #333;
+            border-radius: 15px;
+
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .video-type:hover {
+            border-color: #8c3fc0;
+
+            transform: translateY(-3px);
+
+            background: #171717;
+        }
+
+        .video-type.selected {
+            border-color: #9b3cff;
+
+            background:
+                rgba(111, 0, 255, 0.15);
+
+            box-shadow:
+                0 0 18px rgba(111, 0, 255, 0.25);
+        }
+
+        .video-type .icon {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .video-type h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .video-type p {
+            color: #777;
+            font-size: 0.75rem;
+        }
+
+        #selectedType {
+            color: #9b4dff;
+            margin-bottom: 20px;
+            min-height: 20px;
+        }
+
+        .upload-section {
+            display: none;
+        }
+
+        .upload-section.show {
+            display: block;
+        }
+
+        .upload-area {
+            display: block;
+
+            border: 2px dashed #555;
+            border-radius: 18px;
+
+            padding: 40px 20px;
+
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .upload-area:hover {
+            border-color: #8c3fc0;
+
+            background:
+                rgba(140, 63, 192, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .upload-area h3 {
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+
+        .upload-area p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        #videoInput {
+            display: none;
+        }
+
+        .file-name {
+            margin-top: 20px;
+            color: #aaa;
+            min-height: 24px;
+        }
+
+        #videoPreview {
+            display: none;
+
+            width: 100%;
+            max-height: 300px;
+
+            margin-top: 25px;
+
+            border-radius: 12px;
+            border: 1px solid #333;
+
+            background: #000;
+        }
+
+        .upload-btn {
+            width: 100%;
+
+            margin-top: 25px;
+            padding: 14px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: linear-gradient(
+                90deg,
+                #6a00ff,
+                #9b3cff
+            );
+
+            color: white;
+
+            font-size: 1rem;
+            font-weight: 600;
+
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 0 20px rgba(140, 63, 192, 0.5);
+        }
+
+        .upload-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+
+            transform: none;
+            box-shadow: none;
+        }
+
+        #status {
+            margin-top: 18px;
+
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 650px) {
+
+            .video-types {
+                grid-template-columns: 1fr;
+            }
+
+            .upload-container {
+                padding: 30px 20px;
+            }
+
+            .upload-container h2 {
+                font-size: 1.8rem;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="background"></div>
+    <div class="glow"></div>
+
+
+    <!-- HEADER -->
+
+    <header>
+
+        <h1>Wicket Tracker</h1>
+
+        <a href="index.html" class="home-btn">
+            Home
+        </a>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main>
+
+        <div class="upload-container">
+
+            <h2>
+                Upload Match Video
+            </h2>
+
+            <p class="subtitle">
+                Select video type and upload your cricket video
+            </p>
+
+
+            <!-- VIDEO TYPE -->
+
+            <p class="type-title">
+                Select Video Type
+            </p>
+
+
+            <div class="video-types">
+
+                <!-- FULL MATCH -->
+
+                <div
+                    class="video-type"
+                    onclick="selectVideoType(
+                        'Full Match Video',
+                        this,
+                        200 * 1024 * 1024 * 1024
+                    )">
+
+                    <div class="icon">
+                        🏏
+                    </div>
+
+                    <h3>
+                        Full Match
+                    </h3>
+
+                    <p>
+                        Complete cricket match
+                    </p>
+
+                </div>
+
+
+                <!-- HIGHLIGHTS -->
+
+                <div
+                    class="video-type"
+                    onclick="selectVideoType(
+                        'Highlight Video',
+                        this,
+                        50 * 1024 * 1024 * 1024
+                    )">
+
+                    <div class="icon">
+                        ⭐
+                    </div>
+
+                    <h3>
+                        Highlights
+                    </h3>
+
+                    <p>
+                        Match highlight video
+                    </p>
+
+                </div>
+
+
+                <!-- VIDEO CLIP -->
+
+                <div
+                    class="video-type"
+                    onclick="selectVideoType(
+                        'Video Clip',
+                        this,
+                        500 * 1024 * 1024
+                    )">
+
+                    <div class="icon">
+                        ✂️
+                    </div>
+
+                    <h3>
+                        Video Clip
+                    </h3>
+
+                    <p>
+                        Short cricket clip
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- SELECTED TYPE -->
+
+            <div id="selectedType">
+                Please select a video type
+            </div>
+
+
+            <!-- UPLOAD SECTION -->
+
+            <div
+                class="upload-section"
+                id="uploadSection">
+
+                <label
+                    for="videoInput"
+                    class="upload-area">
+
+                    <div class="upload-icon">
+                        🎥
+                    </div>
+
+                    <h3>
+                        Choose your video
+                    </h3>
+
+                    <p>
+                        Click here to select an MP4, MOV or AVI video
+                    </p>
+
+                    <p id="maxSizeText">
+                        Maximum file size: —
+                    </p>
+
+                </label>
+
+
+                <!-- VIDEO INPUT -->
+
+                <input
+                    type="file"
+                    id="videoInput"
+                    accept="video/*"
+                >
+
+
+                <!-- FILE NAME -->
+
+                <div
+                    class="file-name"
+                    id="fileName">
+
+                    No video selected
+
+                </div>
+
+
+                <!-- VIDEO PREVIEW -->
+
+                <video
+                    id="videoPreview"
+                    controls>
+                </video>
+
+
+                <!-- UPLOAD BUTTON -->
+
+                <button
+                    id="uploadBtn"
+                    class="upload-btn"
+                    disabled>
+
+                    Upload & Analyze
+
+                </button>
+
+
+                <p id="status"></p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const videoInput =
+            document.getElementById("videoInput");
+
+        const fileName =
+            document.getElementById("fileName");
+
+        const videoPreview =
+            document.getElementById("videoPreview");
+
+        const uploadBtn =
+            document.getElementById("uploadBtn");
+
+        const status =
+            document.getElementById("status");
+
+        const selectedTypeText =
+            document.getElementById("selectedType");
+
+        const uploadSection =
+            document.getElementById("uploadSection");
+
+        const maxSizeText =
+            document.getElementById("maxSizeText");
+
+
+        let selectedVideoType = "";
+
+        let maxFileSize = 0;
+
+
+        /* =================================
+           SELECT VIDEO TYPE
+        ================================= */
+
+        function selectVideoType(
+            type,
+            element,
+            maxSize
+        ) {
+
+            selectedVideoType = type;
+
+            maxFileSize = maxSize;
+
+
+            /* Remove selected from all cards */
+
+            document
+                .querySelectorAll(".video-type")
+                .forEach(function(card) {
+
+                    card.classList.remove("selected");
+
+                });
+
+
+            /* Select clicked card */
+
+            element.classList.add("selected");
+
+
+            /* Show selected type */
+
+            selectedTypeText.textContent =
+                "Selected: " + type;
+
+
+            /* Show upload section */
+
+            uploadSection.classList.add("show");
+
+
+            /* Show maximum size */
+
+            let sizeText = "";
+
+            if (
+                maxSize ===
+                200 * 1024 * 1024 * 1024
+            ) {
+
+                sizeText = "200 GB";
+
+            } else if (
+                maxSize ===
+                50 * 1024 * 1024 * 1024
+            ) {
+
+                sizeText = "50 GB";
+
+            } else {
+
+                sizeText = "500 MB";
+
+            }
+
+
+            maxSizeText.textContent =
+                "Maximum file size: " + sizeText;
+
+
+            /* Reset previous video */
+
+            videoInput.value = "";
+
+            fileName.textContent =
+                "No video selected";
+
+            videoPreview.style.display =
+                "none";
+
+            videoPreview.removeAttribute("src");
+
+            uploadBtn.disabled = true;
+
+            status.textContent = "";
+
+        }
+
+
+        /* =================================
+           VIDEO SELECT
+        ================================= */
+
+        videoInput.addEventListener(
+            "change",
+            function() {
+
+                const file =
+                    this.files[0];
+
+
+                /* No file */
+
+                if (!file) {
+
+                    fileName.textContent =
+                        "No video selected";
+
+                    videoPreview.style.display =
+                        "none";
+
+                    uploadBtn.disabled =
+                        true;
+
+                    return;
+                }
+
+
+                /* =================================
+                   CHECK FILE TYPE
+                ================================= */
+
+                if (!file.type.startsWith("video/")) {
+
+                    alert(
+                        "Please select a video."
+                    );
+
+
+                    /* Clear selected file */
+
+                    this.value = "";
+
+
+                    fileName.textContent =
+                        "No video selected";
+
+
+                    videoPreview.style.display =
+                        "none";
+
+
+                    videoPreview.removeAttribute(
+                        "src"
+                    );
+
+
+                    uploadBtn.disabled =
+                        true;
+
+
+                    status.textContent =
+                        "Please select a video.";
+
+
+                    return;
+                }
+
+
+                /* =================================
+                   CHECK FILE SIZE
+                ================================= */
+
+                if (file.size > maxFileSize) {
+
+                    let sizeText = "";
+
+                    if (
+                        maxFileSize ===
+                        200 * 1024 * 1024 * 1024
+                    ) {
+
+                        sizeText = "200 GB";
+
+                    } else if (
+                        maxFileSize ===
+                        50 * 1024 * 1024 * 1024
+                    ) {
+
+                        sizeText = "50 GB";
+
+                    } else {
+
+                        sizeText = "500 MB";
+
+                    }
+
+
+                    alert(
+                        "This video is too large.\n\n" +
+                        selectedVideoType +
+                        " allows a maximum file size of " +
+                        sizeText +
+                        "."
+                    );
+
+
+                    this.value = "";
+
+                    fileName.textContent =
+                        "No video selected";
+
+                    videoPreview.style.display =
+                        "none";
+
+                    videoPreview.removeAttribute(
+                        "src"
+                    );
+
+                    uploadBtn.disabled =
+                        true;
+
+                    status.textContent = "";
+
+                    return;
+                }
+
+
+                /* =================================
+                   SHOW FILE NAME
+                ================================= */
+
+                fileName.textContent =
+                    "Selected: " + file.name;
+
+
+                /* =================================
+                   VIDEO PREVIEW
+                ================================= */
+
+                const videoURL =
+                    URL.createObjectURL(file);
+
+
+                videoPreview.src =
+                    videoURL;
+
+
+                videoPreview.style.display =
+                    "block";
+
+
+                /* =================================
+                   READY STATUS
+                ================================= */
+
+                status.textContent =
+                    "Video ready for analysis.";
+
+
+                uploadBtn.disabled =
+                    false;
+
+            }
+        );
+
+
+        /* =================================
+           UPLOAD & ANALYZE
+        ================================= */
+
+        uploadBtn.addEventListener(
+            "click",
+            function() {
+
+                const file =
+                    videoInput.files[0];
+
+
+                if (!selectedVideoType) {
+
+                    alert(
+                        "Please select a video type."
+                    );
+
+                    return;
+                }
+
+
+                if (!file) {
+
+                    alert(
+                        "Please select a video."
+                    );
+
+                    return;
+                }
+
+
+                /* Extra safety check */
+
+                if (!file.type.startsWith("video/")) {
+
+                    alert(
+                        "Please select a video."
+                    );
+
+                    return;
+                }
+
+
+                status.textContent =
+                    "Preparing " +
+                    selectedVideoType +
+                    " for analysis...";
+
+
+                /*
+                    BACKEND CONNECTION:
+
+                    const formData = new FormData();
+
+                    formData.append(
+                        "video",
+                        file
+                    );
+
+                    formData.append(
+                        "videoType",
+                        selectedVideoType
+                    );
+
+                    fetch("/upload", {
+                        method: "POST",
+                        body: formData
+                    });
+                */
+
+
+                setTimeout(function() {
+
+                    status.textContent =
+                    selectedVideoType +
+                    " selected successfully. " +
+                    "Opening analysis dashboard...";
+
+                    window.location.href = "dashboard.html";
+
+                }, 1000);;
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
