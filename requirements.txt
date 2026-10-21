@@ -1,2 +1,4 @@
 # WicketTracker Python Dependencies
 # Final versions will be pinned after the project environment is verified.
+ultralytics
+opencv-python
