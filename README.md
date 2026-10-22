@@ -49,7 +49,7 @@ Connects the frontend with the computer-vision pipeline and manages processing r
 - Person 1 — OCR & Ball Detection
 - Person 2 — Pitch Detection
 - Person 3 — Ball Tracking & Heatmaps
-- Person 4 — Frontend & Backend Integration
+- Person 4,5 — Frontend & Backend Integration
 
 ## Project Status
 
