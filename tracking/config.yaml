@@ -1,0 +1,56 @@
+# Cricket Trajectory Tracking and Hawk-Eye LBW Graphics Configuration
+
+pitch:
+  length_between_stumps: 20.12     # Metres between striker and bowler stumps
+  width: 3.05                     # Pitch strip width (m)
+  popping_crease_dist: 1.22        # Metres in front of stumps
+  return_crease_half_width: 1.32   # Metres from pitch center (+-1.32 m)
+  stump_width: 0.2286              # 22.86 cm total width of 3 stumps
+  stump_height: 0.711              # 71.1 cm height of stumps
+  bail_height: 0.035               # 3.5 cm bail clearance above stumps
+  corridor_half_width: 0.1143      # 11.43 cm (half of stump width)
+
+ball:
+  radius: 0.036                    # 3.6 cm radius (7.2 cm diameter)
+  mass: 0.160                      # 160 grams
+  cd: 0.45                         # Aerodynamic drag coefficient
+  air_density: 1.20                # kg/m^3
+
+camera:
+  default_fps: 50.0
+  assumed_sensor_aspect: 1.7777778 # 16:9
+  fov_guess_deg: 25.0              # Broadcast telephoto lens guess
+  min_reprojection_inliers: 4
+  reprojection_error_thresh_px: 5.0
+
+tracking:
+  top_k_candidates: 5
+  corridor_x_min: -1.0
+  corridor_x_max: 22.0
+  corridor_y_max: 2.2
+  corridor_z_max: 3.5
+  viterbi_accel_weight: 1.0
+  viterbi_dist_weight: 0.5
+  viterbi_miss_penalty: 15.0
+
+fitting:
+  huber_loss_delta: 2.0
+  release_height_min: 1.80
+  release_height_max: 2.45
+  speed_min_kmh: 70.0
+  speed_max_kmh: 160.0
+  default_speed_prior_sigma_kmh: 15.0
+
+lbw:
+  handedness: "right"              # "right" or "left"
+  stump_half_width: 0.1143
+  umpires_call_margin_m: 0.036     # 1 ball radius margin for umpire's call
+  impact_forward_min_x: 0.10       # Must impact at least 10 cm in front of stumps
+
+rendering:
+  actual_path_color: [0, 0, 230]   # Red BGR
+  counterfactual_color: [230, 140, 20] # Sky blue BGR
+  corridor_color: [200, 100, 30]   # Cyan/Blue BGR
+  tube_radius_px: 5
+  overlay_alpha: 0.75
+  video_codec: "mp4v"
