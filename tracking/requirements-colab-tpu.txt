@@ -1,3 +1,0 @@
-# Google Colab TPU runtime dependencies
-# TensorFlow is supplied by the Colab TPU runtime; do not reinstall it.
--r requirements.txt
