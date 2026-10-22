@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cricket-trajectory"
+version = "0.1.0"
+description = "Hawk-Eye Style Cricket Ball 3D Trajectory Tracking, Pitching Point Prediction, and LBW Graphics"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Senior Computer Vision Engineer" }]
+dependencies = [
+    "numpy>=1.24.0",
+    "scipy>=1.10.0",
+    "opencv-python>=4.7.0",
+    "matplotlib>=3.7.0",
+    "PyYAML>=6.0",
+]
+
+[project.scripts]
+cricket-traj = "cricket_traj.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
