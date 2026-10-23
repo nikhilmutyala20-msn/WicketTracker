@@ -57,4 +57,4 @@ Under development.
 
 ## Documentation
 
-Detailed project documentation is available in the `docs/` directory.
+Detailed project documentation is available in the `docs/` directory. 
